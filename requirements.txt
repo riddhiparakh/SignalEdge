@@ -1,0 +1,19 @@
+# Phase 1 — Data ingestion
+requests>=2.31.0          # HTTP calls to Polymarket + newsdata.io
+python-dotenv>=1.0.0      # Load .env into os.environ
+
+# Testing
+pytest>=8.0.0
+pytest-mock>=3.12.0       # Mock API calls so tests don't need real keys
+
+# Phase 2 — Agent brain
+anthropic>=0.28.0         # Claude API SDK
+chromadb>=0.5.0           # Vector store for RAG (semantic headline search)
+
+# Phase 4 — Dashboard
+streamlit>=1.40.0         # UI framework (1.40+ supports protobuf 6.x used by chromadb)
+pandas>=2.0.0             # DataFrames for st.line_chart and st.dataframe
+
+# Phase 5 — REST API backend for Next.js
+fastapi>=0.110.0          # REST API framework wrapping all Python logic
+uvicorn>=0.29.0           # ASGI server to run FastAPI

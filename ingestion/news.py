@@ -134,13 +134,18 @@ def fetch_news_for_market(market_id: str, question: str) -> list[dict]:
 
     data = response.json()
 
-    if data.get("status") != "success":
+    # Debug: log what newsdata.io actually returned
+    status = data.get("status")
+    results_count = len(data.get("results") or [])
+    print(f"    [newsdata] status={status} results={results_count} credits_used={data.get('totalResults', '?')} msg={data.get('message','')[:80]}")
+
+    if status != "success":
         print(f"  ERROR: newsdata.io API error — {data.get('message', 'unknown')}")
         return []
 
     articles = data.get("results", [])
     cleaned = [_parse_article(a, query, market_id) for a in articles]
-    # Filter out articles with missing fields or older than 48 hours
+    # Filter out articles with missing fields or older than 7 days
     return [a for a in cleaned if a is not None and _is_recent(a["published_at"], max_hours=168)]
 
 

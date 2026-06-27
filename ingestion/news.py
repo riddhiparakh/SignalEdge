@@ -141,7 +141,7 @@ def fetch_news_for_market(market_id: str, question: str) -> list[dict]:
     articles = data.get("results", [])
     cleaned = [_parse_article(a, query, market_id) for a in articles]
     # Filter out articles with missing fields or older than 48 hours
-    return [a for a in cleaned if a is not None and _is_recent(a["published_at"], max_hours=48)]
+    return [a for a in cleaned if a is not None and _is_recent(a["published_at"], max_hours=168)]
 
 
 def _parse_article(raw: dict, query_used: str, market_id: str) -> dict | None:

@@ -228,7 +228,7 @@ def _load_recent_articles(max_hours: int = 48) -> list[dict]:
     return [dict(row) for row in rows]
 
 
-def run(markets: list[dict], chroma_client=None, anthropic_client=None) -> list[dict]:
+def run(markets: list[dict], chroma_client=None, anthropic_client=None) -> list[dict]:  # noqa: E501
     """
     Main entry point for the agent phase.
 
@@ -238,7 +238,7 @@ def run(markets: list[dict], chroma_client=None, anthropic_client=None) -> list[
     4. Save each judgment to the DB.
     Returns a list of all saved judgments.
     """
-    articles = _load_recent_articles()
+    articles = _load_recent_articles(max_hours=168)
     print(f"  Loaded {len(articles)} recent articles from DB")
 
     indexed = rag.index_articles(articles, client=chroma_client)
